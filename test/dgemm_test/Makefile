@@ -6,7 +6,7 @@ $(prefix):
 	@mkdir -p $@
 
 $(prefix)/dgemm_test$(EXE): dgemm_test.c | $(prefix)
-	@$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+	@$(CC) -o $@ $(LBT_CFLAGS) $^ $(LBT_LDFLAGS)
 
 clean:
 	@rm -f $(prefix)/dgemm_test$(EXE)
