@@ -6,7 +6,7 @@ $(prefix):
 	@mkdir -p $@
 
 $(prefix)/sgesv_test$(EXE): sgesv_test.c | $(prefix)
-	@$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+	@$(CC) -o $@ $(LBT_CFLAGS) $^ $(LBT_LDFLAGS)
 
 clean:
 	@rm -f $(prefix)/sgesv_test$(EXE)

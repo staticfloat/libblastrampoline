@@ -1,3 +1,5 @@
+# -*- makefile -*-
+
 # ARCH detection in Make, used to pick out which trampoline assembly syntax we're gonna use
 ARCH := $(shell $(CC) -dumpmachine | sed "s/\([^-]*\).*$$/\1/")
 
@@ -32,17 +34,17 @@ else
   binlib := lib
 endif
 
-CFLAGS := -g -O2 -std=c99 -fPIC -DLIBRARY_EXPORTS -D_GNU_SOURCE $(CFLAGS_add)
-LDFLAGS := -shared
+LBT_CFLAGS := -g -O2 -std=c99 -fPIC -DLIBRARY_EXPORTS -D_GNU_SOURCE $(CFLAGS)
+LBT_LDFLAGS := $(LDFLAGS)
 
 ifeq ($(OS),Linux)
 # On linux, we need to link `libdl` to get `dlopen`
-LDFLAGS += -ldl
+LBT_LDFLAGS += -ldl
 endif
 
 ifeq ($(OS),WINNT)
 # On windows, we need to enable unicode mode
-CFLAGS += -municode
+LBT_CFLAGS += -municode
 endif
 
 # On windows, we must generate import libraries
@@ -59,7 +61,7 @@ endif
 # from returning doubles to instead return float's.  We enable automatic F2C detection on those platforms.
 F2C_AUTODETECTION := 0
 ifeq ($(ARCH),x86_64)
-  CFLAGS += -DF2C_AUTODETECTION
+  LBT_CFLAGS += -DF2C_AUTODETECTION
   F2C_AUTODETECTION := 1
 endif
 

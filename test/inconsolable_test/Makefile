@@ -6,7 +6,7 @@ $(prefix):
 	@mkdir -p $@
 
 $(prefix)/inconsolable_test$(EXE): inconsolable_test.c | $(prefix)
-	@$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+	@$(CC) -o $@ $(LBT_CFLAGS) $^ $(LBT_LDFLAGS)
 
 clean:
 	@rm -f $(prefix)/inconsolable_test$(EXE)
